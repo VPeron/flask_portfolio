@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Hash Generator - Dashboard {{ super() }}{% endblock %}
+
+    {% block content %}
+    <body>
+        <h1>Generated Hash</h1>
+        <div class="grid-item">
+            <strong>Hashed string:</strong>
+            <span>{{ hashed_string }}</span>
+        </div>
+        <hr>
+        <form action="{{ url_for('hash_calculator.index') }}" method="get">
+            <button type="submit">Back</button>
+        </form>
+    </body>
+    </html>
+    {% endblock %}

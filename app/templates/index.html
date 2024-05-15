@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}VPeron - Home {{ super() }}{% endblock %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <h1>Tools</h1>
+        <p>Hi, {{ current_user.username }}!</p>
+        <p></p>
+        <hr>
+        <h1>Apps</h1>
+        
+        <form action="{{ url_for('password_profiler.pass_profiler_dashboard') }}" method="get">
+            <button type="submit">Password Profiler</button>
+        </form>
+        <form action="{{ url_for('hash_calculator.index') }}" method="get">
+            <button type="submit">Hash Calculator</button>
+        </form>
+
+        
+    {% else %}
+        <p>You are not logged in. <a href="{{ url_for('login') }}">Login</a></p>
+    {% endif %}
+
+{% endblock %}

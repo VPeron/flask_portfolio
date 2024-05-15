@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}VPeron - About {{ super() }}{% endblock %}
+
+{% block content %}
+<body>
+    <header>
+        <h1>Vini Peron</h1>
+    </header>
+    <div class="container">
+        <h1>About</h1>
+        <p>Welcome to my Flask application!</p>
+        <p>My name is Vini. The tools is in this application were developed for educational purposes only. Use them at your own risk.</p>
+        <p>I am generally interested in cybersecurity and data analysis. The goal of this project, however, is to learn about the deployment and maintenace process of a Flask application with security in mind.</p>
+        <p>I also enjoy experimenting with machine learning projects and gadgets like raspberry pis.</p>
+        <p>In my spare time I enjoy bike riding and playing chess.</p>
+        <p>Check out my <a href="https://github.com/VPeron/VPeron.github.io" target="_blank">GitHub</a></p>
+        <p>And let's play a game on <a href="https://lichess.org/@/Vknee" target="blank">Lichess</a></p>
+        <hr>
+        <h2>Tools</h3>
+        <h3>Password Profiler</h2>
+        <p>The Password Profiler feature allows users to analyze the strength of their passwords by checking them against various criteria such as length, complexity, and common patterns.</p>
+        <h3>Hash Calculator</h2>
+        <p>The Hash Calculator feature provides users with the ability to generate cryptographic hash values for strings using different algorithms such as MD5, SHA-1, and SHA-256.</p>
+        
+    </div>
+</body>
+{% endblock %}

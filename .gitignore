@@ -1,0 +1,5 @@
+.env
+instance/
+migrations/
+__pycache__
+app/password_profiler/data

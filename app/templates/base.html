@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    
+    {% if current_user.is_authenticated %}
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li> 
+            </ul>
+        </nav>
+    </header>
+    {% endif %}
+    
+    <div class="container">
+
+        {% block content %}{% endblock %}
+        
+    </div>
+    <footer>
+        {% if current_user.is_authenticated %}
+            <hr>
+            <form action="{{ url_for('logout') }}" method="get">
+                <button type="submit">Logout</button>
+            </form>
+        {% endif %}
+        <p class="footer-text">©- 2024 Vini Peron. Open Sourced Minded. 👾</p>
+    </footer>
+</body>
+</html>

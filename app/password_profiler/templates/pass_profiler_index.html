@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Password Profiler - {{ super() }}{% endblock %}
+
+{% block content %}
+    <h2>Password Profiler</h2>
+    <b>Note:</b>
+    <hr>
+    <p>Your input string will be covered when typing and only its sha256 hash will be displayed afterwards, to represent its plain text string.</p>
+    <p>The tools in this app were designed for educational purposes. Use at your own discretion and risk.</p>
+    <form action="{{ url_for('password_profiler.check_password_strength') }}" method="get">
+        <button type="submit">Go to Password profiler</button>
+    </form>
+{% endblock %}
+

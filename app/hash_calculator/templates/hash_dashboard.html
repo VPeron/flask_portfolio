@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Hash Generator - Dashboard {{ super() }}{% endblock %}
+
+    {% block content %}
+    <body>
+        <h1>Hash Calculator</h1>
+        <hr>
+        <form action="/hash_calculator/hash_calculator" method="post">
+            <label for="hash_type">Select a hash algorithm:</label>
+            <select name="hash_type" id="hash_type">
+                <option value="md5">MD5</option>
+                <option value="sha1">SHA-1</option>
+                <option value="sha256">SHA-256</option>
+            </select>
+            <br>
+            <label for="string_to_hash">Enter a string to hash:</label>
+            <input type="text" name="string_to_hash" id="string_to_hash">
+            <br>
+            <input type="submit" value="Generate Hash">
+        </form>
+        <hr>
+        <form action="{{ url_for('index') }}" method="get">
+            <button type="submit">Back Home</button>
+        </form>
+    </body>
+    
+    {% endblock %}
