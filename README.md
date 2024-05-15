@@ -2,7 +2,7 @@
 
 # Installation
 
-    #TODO add github url
+    git clone https://github.com/VPeron/flask_portfolio
     pip install -r requirements.txt
 
 # Usage
