@@ -2,6 +2,7 @@ from collections import Counter
 import string
 import math
 import os
+import hashlib
 
 from dotenv import load_dotenv
 
@@ -9,24 +10,25 @@ load_dotenv()
 
 
 COMM_PASS_LIST = os.getenv('COMMONS_PATH')
-
+HASH_ALGO = os.getenv("HASH_ALGO")
+FREQUENCY_THRESHHOLD = 20
 
 class StrengthChecker:
     def __init__(self, password: str) -> None:
         self.score = 0
         self.password = password
         self.classification = "None"
-        #logger.info(f"Target: {self.password}")
 
     def char_type_check(self) -> list:
+        """
         # checks whether password has upper, lower, special chars and/or digits within its string
+        """
         upper_case = any([1 if c in string.ascii_uppercase else 0 for c in self.password])
         lower_case = any([1 if c in string.ascii_lowercase else 0 for c in self.password])
         special = any([1 if c in string.punctuation else 0 for c in self.password])
         digits = any([1 if c in string.digits else 0 for c in self.password])
 
         self.chars = [upper_case, lower_case, special, digits]
-        #logger.info(f"Character Types met: {sum(self.chars)}")
         if all(self.chars):
             self.score += 1
 
@@ -38,11 +40,9 @@ class StrengthChecker:
             common = f.read().splitlines()
 
         if self.password in common:
-            #logger.info(f"Commons : True")
             self.score = 0
             return True
         else:
-            #logger.info("Commons : False")
             self.score += 1
             return False
             
@@ -56,9 +56,57 @@ class StrengthChecker:
         
         # Calculate entropy using the formula: -p * log2(p)
         self.entropy = -sum(p * math.log2(p) for p in probabilities if p > 0)
-        #logger.info(f"Entropy score: {self.entropy}")
         return self.entropy
+    
+    # high frequency characters profiling
+    
+    def hash_string(self, input_string):
+        """
+        converts input string into its sha256 hexadecimal representation
+        """
+        # init hashlib object
+        hasher_obj = hashlib.new(HASH_ALGO)
+        # update the hashlib object with the input string encoded as bytes
+        hasher_obj.update(input_string.encode())
+        # return the hexadecimal representation of the hash
+        return hasher_obj.hexdigest()
 
+    def count_char_occurrences(self, input_string):
+        """
+        counts occurences of characters within input_string
+        """
+        char_count = {}
+        total_chars = len(input_string)
+
+        for char in input_string:
+            hex_char_hash = self.hash_string(char)
+            if hex_char_hash not in char_count:
+                char_count[hex_char_hash] = 0
+            char_count[hex_char_hash] += 1
+
+        return char_count, total_chars
+
+    def calculate_relative_percentages(self, char_count, total_chars):
+        relative_percentages = {}
+        for hex_char, count in char_count.items():
+            relative_percentages[hex_char] = round((count / total_chars) * 100, 3)
+
+        return relative_percentages
+
+    def check_frequency(self):
+        char_count, total_chars = self.count_char_occurrences(self.password)
+        self.relative_percentages = self.calculate_relative_percentages(char_count, total_chars)
+
+        self.high_frequency = False
+        for _, percent in self.relative_percentages.items():
+            # check threshold
+            if percent > FREQUENCY_THRESHHOLD:
+                self.high_frequency = True
+            return self.high_frequency
+        return self.high_frequency
+
+    # scores
+    
     def profile_length(self) -> int:
         # check password length
         if len(self.password) >= 8:
@@ -75,27 +123,26 @@ class StrengthChecker:
         # check entropy
         if self.entropy > 3:
             self.score += 1
+            
+        # check high frequency
+        if self.high_frequency:
+            self.score -= 1
+        else:
+            self.score += 2
 
         return self.score
 
     def classify(self) -> None:
-        #logger.info(f"Total score: {self.score}")
         if self.score == 0:
-            #logger.info("Class: very weak")
             self.classification = "very weak"
         elif 1 <= self.score < 4:
-            #logger.info("Class: weak")
             self.classification = "weak"
         elif 4 <= self.score < 6:
-            #logger.info("Class: moderate")
             self.classification = "moderate"
         elif 6 <= self.score < 8:
-            #logger.info("Class: strong")
             self.classification = "strong"
         elif self.score >= 8:
-            #logger.info("Class: very strong")
             self.classification = "very strong"
-        #logger.info("")
             
     def run(self) -> None:
         self.char_type_check()
@@ -104,11 +151,20 @@ class StrengthChecker:
 
         self.calculate_entropy(self.password)
 
+        self.check_frequency()
+        
         self.profile_length()
 
         self.classify()
         
-        self.report = {"score": self.score, "entropy": self.entropy, "common": common, "classification": self.classification}
+        self.report = {
+            "score": self.score, 
+            "entropy": self.entropy, 
+            "common": common, 
+            "classification": self.classification, 
+            "char_frequency": [self.relative_percentages, self.high_frequency]
+            }
+        
         return self.report
         
         

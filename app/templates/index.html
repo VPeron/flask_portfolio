@@ -7,9 +7,8 @@
         <h1>Tools</h1>
         <p>Hi, {{ current_user.username }}!</p>
         <p></p>
+        <p>Below you will find some simple/common tools used within the cyber security field.</p>
         <hr>
-        <h1>Apps</h1>
-        
         <form action="{{ url_for('password_profiler.pass_profiler_dashboard') }}" method="get">
             <button type="submit">Password Profiler</button>
         </form>

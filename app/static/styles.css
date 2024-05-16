@@ -136,3 +136,8 @@ footer {
 footer form {
     margin-top: 10px; /* Adjust margin as needed */
 }
+
+/* smaller font */
+.smaller-font span {
+    font-size: 13px; /* Adjust this value as needed */
+}

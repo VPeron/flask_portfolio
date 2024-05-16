@@ -5,7 +5,7 @@ from flask_login import login_required #, current_user
 
 
 from app.password_profiler import password_profiler_bp
-from app.models import User
+#from app.models import User
 from app.password_profiler.models import StrengthChecker
 
 
@@ -27,8 +27,6 @@ def check_password_strength():
 
         checker = StrengthChecker(password)
         report = checker.run()
-        
-        #hashed_password = hashlib.sha256(password.encode()).hexdigest()
     
         return render_template('check_password.html', title="Password Profiler", password=hashlib.sha256(password.encode()).hexdigest(), strength=report)
     return render_template('check_password.html', title="Password Profiler")
