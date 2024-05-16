@@ -67,7 +67,7 @@ class StrengthChecker:
     
     def hash_string(self, input_string) -> str:
         """
-        converts input string into its sha256 hexadecimal representation
+        converts input string hash into its hexadecimal representation
         """
         # init hashlib object
         hasher_obj = hashlib.new(HASH_ALGO)
@@ -99,15 +99,14 @@ class StrengthChecker:
         return relative_percentages
 
     def check_frequency(self) -> bool:
+        # track high frequency character
+        self.high_frequency = False
         char_count, total_chars = self.count_char_occurrences(self.password)
         self.relative_percentages = self.calculate_relative_percentages(char_count, total_chars)
-
-        self.high_frequency = False
         for _, percent in self.relative_percentages.items():
             # check threshold
             if percent > FREQUENCY_THRESHHOLD:
                 self.high_frequency = True
-            return self.high_frequency
         return self.high_frequency
 
     # scores
@@ -128,13 +127,12 @@ class StrengthChecker:
         # check entropy
         if self.entropy > 3:
             self.score += 1
-            
         # check high frequency
         if self.high_frequency:
-            self.score -= 1
+            self.score -= 1 if self.score > 0 else 0
         else:
             self.score += 2
-
+        
         return self.score
 
     def classify(self) -> None:
