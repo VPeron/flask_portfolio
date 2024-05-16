@@ -21,7 +21,7 @@ class StrengthChecker:
 
     def char_type_check(self) -> list:
         """
-        # checks whether password has upper, lower, special chars and/or digits within its string
+        checks whether password has upper, lower, special chars and/or digits within its string
         """
         upper_case = any([1 if c in string.ascii_uppercase else 0 for c in self.password])
         lower_case = any([1 if c in string.ascii_lowercase else 0 for c in self.password])
@@ -35,7 +35,9 @@ class StrengthChecker:
         return self.chars
 
     def check_commons(self) -> bool:
-        # check if password in common password list (rockyou.txt)
+        """
+        check if password in common password list (rockyou.txt)
+        """
         with open(COMM_PASS_LIST) as f:
             common = f.read().splitlines()
 
@@ -47,6 +49,9 @@ class StrengthChecker:
             return False
             
     def calculate_entropy(self, char_string: str) -> float:
+        """
+        calculates entropy of characters within the string
+        """
         # Count the occurrences of each character in the string
         counts = Counter(char_string)
         
@@ -60,7 +65,7 @@ class StrengthChecker:
     
     # high frequency characters profiling
     
-    def hash_string(self, input_string):
+    def hash_string(self, input_string) -> str:
         """
         converts input string into its sha256 hexadecimal representation
         """
@@ -86,14 +91,14 @@ class StrengthChecker:
 
         return char_count, total_chars
 
-    def calculate_relative_percentages(self, char_count, total_chars):
+    def calculate_relative_percentages(self, char_count, total_chars) -> dict:
         relative_percentages = {}
         for hex_char, count in char_count.items():
             relative_percentages[hex_char] = round((count / total_chars) * 100, 3)
 
         return relative_percentages
 
-    def check_frequency(self):
+    def check_frequency(self) -> bool:
         char_count, total_chars = self.count_char_occurrences(self.password)
         self.relative_percentages = self.calculate_relative_percentages(char_count, total_chars)
 
@@ -144,7 +149,7 @@ class StrengthChecker:
         elif self.score >= 8:
             self.classification = "very strong"
             
-    def run(self) -> None:
+    def run(self) -> dict:
         self.char_type_check()
 
         common = self.check_commons()
