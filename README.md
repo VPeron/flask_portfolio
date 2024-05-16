@@ -1,9 +1,12 @@
 # Portfolio App
 
 # Installation
-
+    (linux)
     git clone https://github.com/VPeron/flask_portfolio
+    cd flask_portfolio
+    activate virtualenvironment
     pip install -r requirements.txt
+    sh setupdb.sh
 
 # Usage
 
@@ -16,8 +19,7 @@
 # GENERAL TODO:
 
     - tests
-    - logger (hash and hide input passwords)
-    - git init
+    - logger
     - deploy to linode (see https://www.youtube.com/watch?v=goToXTC96Co and https://www.linode.com/docs/guides/flask-and-gunicorn-on-ubuntu/)
     - create new v env => service_management_env is in use (needs to have its own venv)
     - pydantic for input validation?

@@ -32,7 +32,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))  # Redirect to index page if user is already logged in
+        return redirect(url_for('index'))  # redirect to index page if user is already logged in
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -41,7 +41,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user)
         next_page = request.args.get('next')  # Get the 'next' query parameter if it exists
-        return redirect(next_page or url_for('index'))  # Redirect to the 'next' page if provided, otherwise to index
+        return redirect(next_page or url_for('index'))  # redirect to the 'next' page if provided, otherwise to index
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')

@@ -21,12 +21,17 @@ def check_password_strength():
     if request.method == 'POST':
         password = request.form.get('password')
         if not password:
-            #TODO: error template with back button
+            #TODO: error template with back button not displaying
             flash('Invalid username or password')
             return redirect(url_for('password_profiler.check_password_strength'))
 
         checker = StrengthChecker(password)
         report = checker.run()
     
-        return render_template('check_password.html', title="Password Profiler", password=hashlib.sha256(password.encode()).hexdigest(), strength=report)
+        return render_template(
+            'check_password.html', 
+            title="Password Profiler", 
+            password=hashlib.sha256(password.encode()).hexdigest(), 
+            strength=report
+            )
     return render_template('check_password.html', title="Password Profiler")

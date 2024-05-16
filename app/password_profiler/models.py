@@ -112,7 +112,7 @@ class StrengthChecker:
 
     # scores
     
-    def profile_length(self) -> int:
+    def profile_score(self) -> int:
         # check password length
         if len(self.password) >= 8:
             self.score += 1
@@ -158,7 +158,7 @@ class StrengthChecker:
 
         self.check_frequency()
         
-        self.profile_length()
+        self.profile_score()
 
         self.classify()
         

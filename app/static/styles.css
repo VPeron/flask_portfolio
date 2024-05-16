@@ -4,16 +4,18 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f7f7f7;
-
     background-image: url('/static/background.jpg'); /* main background image */
     background-size: cover;
     background-repeat: no-repeat;
+
+
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+
 }
 
 /* Header styles */
@@ -44,7 +46,6 @@ nav ul li a {
     color: #fff;
     text-decoration: none;
 }
-
 
 
 /* Main content styles */
@@ -134,10 +135,10 @@ footer {
 }
 
 footer form {
-    margin-top: 10px; /* Adjust margin as needed */
+    margin-top: 10px; 
 }
 
-/* smaller font */
+/* pass_prof result smaller font */
 .smaller-font span {
-    font-size: 13px; /* Adjust this value as needed */
+    font-size: 13px;
 }

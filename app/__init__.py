@@ -27,13 +27,13 @@ from app import routes, models
 # password_profiler blueprint
 from app.password_profiler import password_profiler_bp  
 app.register_blueprint(password_profiler_bp)
-# Add the path to the 'password_profiler/templates' directory to Jinja's search path
+# path to the 'password_profiler/templates' directory to Jinja's search path
 app.jinja_loader.searchpath.append(os.path.join(os.path.dirname(__file__), 'password_profiler', 'templates'))
 
 # hash_calculator blueprint
 from app.hash_calculator import hash_calculator_bp   
 app.register_blueprint(hash_calculator_bp)
-# Add the path to the 'hash_calculator/templates' directory to Jinja's search path
+# path to the 'hash_calculator/templates' directory to Jinja's search path
 app.jinja_loader.searchpath.append(os.path.join(os.path.dirname(__file__), 'hash_calculator', 'templates'))
 
 
