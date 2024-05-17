@@ -4,7 +4,7 @@ A simple flask application to explore the library and devops process.
 
 # Installation
     (linux)
-    git clone https://github.com/VPeron/flask_portfolio
+    git clone https://github.com/VPeron/flask_portfolio.git
     cd flask_portfolio
     activate virtualenvironment
     pip install -r requirements.txt
