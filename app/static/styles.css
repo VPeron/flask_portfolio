@@ -128,11 +128,13 @@ nav ul li a {
 .grid-item {
     padding: 10px;
     border: 1px solid #ee0707;
+    box-sizing: border-box; /* Ensures padding and border are included in the width/height */
 }
 
 .grid-item strong {
     font-weight: bold;
 }
+
 
 /* base.html footer */
 
