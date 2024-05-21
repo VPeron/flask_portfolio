@@ -6,9 +6,24 @@ body {
     background-color: #f7f7f7;
     background-image: url('/static/background.jpg'); /* main background image */
     background-size: cover;
+    background-position: center; /* Centers the image */
     background-repeat: no-repeat;
 
 
+}
+
+@media (max-width: 767px) {
+    body {
+        background-size: cover; /* Ensure the image covers the background */
+        background-position: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
 }
 
 .container {
